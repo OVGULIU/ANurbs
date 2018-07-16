@@ -38,7 +38,7 @@ public:
         const int order) const = 0;
 
     ScalarType
-    Length(
+    virtual Length(
         const ScalarType tolerance = 1e-7) const
     {
         ScalarType t0 = Domain().T0();
@@ -48,7 +48,7 @@ public:
     }
 
     ScalarType
-    SegmentLength(
+    virtual SegmentLength(
         const IntervalType& domain,
         const ScalarType tolerance = 1e-7) const
     {
@@ -56,7 +56,7 @@ public:
     }
 
     ScalarType
-    SegmentLength(
+    virtual SegmentLength(
         const ScalarType t0,
         const ScalarType t1,
         const ScalarType tolerance = 1e-7) const

@@ -2,6 +2,7 @@
 
 #include "CurveBase.h"
 #include "CurveGeometry.h"
+#include "IntegrationPoints.h"
 #include "Pointer.h"
 
 namespace ANurbs {
@@ -106,6 +107,28 @@ public:
         }
 
         return result;
+    }
+
+    ScalarType
+    virtual Length(
+        const ScalarType tolerance = 1e-7) const
+    {
+        ScalarType length = 0;
+
+        for (const auto& span : Spans()) {
+            auto integrationPoints = IntegrationPoints<double>::Points1(
+                Degree() + 1, span);
+            
+            for (const auto& integrationPoint : integrationPoints) {
+                auto tangent = DerivativesAt(integrationPoint.t, 1)[1];
+
+                auto ds = VectorMath<VectorType>::Norm(tangent);
+
+                length += ds * integrationPoint.weight;
+            }
+        }
+
+        return length;
     }
 };
 
