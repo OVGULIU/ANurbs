@@ -88,6 +88,47 @@ public:
 
         return integrationPoints;
     }
+
+    static std::vector<IntegrationPoint2Type>
+    Points2(
+        const size_t degreeU,
+        const size_t degreeV,
+        const std::vector<Interval<ScalarType>>& domainsU,
+        const std::vector<Interval<ScalarType>>& domainsV)
+    {
+        std::vector<IntegrationPoint2Type> integrationPoints;
+        integrationPoints.reserve(domainsU.size() * domainsV.size() * degreeU *
+            degreeV);
+
+        for (const auto& domainU : domainsU) {
+            if (domainU.Length() == 0) {
+                continue;
+            }
+
+            const auto integrationPointsU = Points1(degreeU, domainU);
+
+            for (const auto& domainV : domainsV) {
+                if (domainV.Length() == 0) {
+                    continue;
+                }
+
+                const auto integrationPointsV = Points1(degreeV, domainV);
+
+                for (const auto& integrationPointU : integrationPointsU) {
+                    for (const auto& integrationPointV : integrationPointsV) {
+                        IntegrationPoint2Type integrationPoint;
+                        integrationPoint.u = integrationPointU.t;
+                        integrationPoint.v = integrationPointV.t;
+                        integrationPoint.weight = integrationPointU.weight *
+                            integrationPointV.weight;
+                        integrationPoints.push_back(integrationPoint);
+                    }
+                }
+            }
+        }
+
+        return integrationPoints;
+    }
 };
 
 template <typename TScalar>
