@@ -13,7 +13,7 @@ add_executable(run_tests
     TestIntegrationPoints.cc
     TestCurveSpanIntersection.cc
     TestPointOnCurveProjection.cc
-    # TestModel.cc
+    TestModel.cc
 )
 
 install(TARGETS run_tests DESTINATION bin)
