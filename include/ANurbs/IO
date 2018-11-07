@@ -1,0 +1,5 @@
+#pragma once
+
+#include "src/IO/Model.h"
+#include "src/IO/Curve3DItem.h"
+#include "src/IO/CurveGeometry3DItem.h"
