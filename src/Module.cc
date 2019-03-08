@@ -8,7 +8,7 @@
 #include <pybind11/stl_bind.h>
 
 
-PYBIND11_MODULE(ANurbs, m) {
+PYBIND11_MODULE(ANurbsDev, m) {
     m.doc() = "A simple NURBS library for Python";
     m.attr("__author__") = "Thomas Oberbichler";
     m.attr("__copyright__") = "Copyright (c) 2018, Thomas Oberbichler";
